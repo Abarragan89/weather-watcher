@@ -1,0 +1,122 @@
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Watcher</title>
+  <link rel="stylesheet" href="css/foundation.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+
+<body>
+  <header>
+    <h1 class="text-center ">Weather Watcher</h1>
+  </header>
+
+  <!-- container for the form and buttons -->
+  <div class="grid-x grid-padding-x">
+    <!-- forms and buttons -->
+    <div class="cell medium-3">
+      <div class="grid-y">
+        <form action="#">
+          <label for="selected-city" id="selected-city">Search for a City</label>
+          <input type="text" name="selected-city" id="selected-city" required>
+          <input type="submit" class="button submit success expanded" value="Search">
+        </form>
+        <div class="grid-y">
+          <button type="button" class="button secondary">button</button>
+          <button type="button" class="button secondary">button</button>
+          <button type="button" class="button secondary">button</button>
+          <button type="button" class="button secondary">button</button>
+        </div>
+      </div>
+    </div>
+    <!-- Area for the current weather and 5 day -->
+    <div class="cell medium-9">
+      <div class="grid-x">
+        <!-- current weather -->
+        <div id="current-weather" class="cell callout">
+          <h2 id="current-city">Atlanta <span id="current-date"></span></h2>
+          <p >Temp: <span id="current-temp">75</span></p>
+          <p>Wind: <span id="current-wind">75</span></p>
+          <p>Humidity: <span id="current-humidity">75</span></p>
+          <p>UV Index: <span id="current-uvIndex">75</span></p>
+        </div>
+        <!-- 5 day forecast -->
+        <div class="cell">
+          <p class="lead">5-Day Forecast:</p>
+          <div class="grid-x align-spaced">
+            <!-- Card 1 -->
+            <div class="card cell large-2">
+              <div class="card-section">
+                <p id="date-1">3/25/2022</p>
+                <div class="weather-icon-1">
+                  <img src="assets/img/generic/rectangle-1.jpg">
+                </div>
+                <p>Temp: <span id="temp-day-1"></span></p>
+                <p>Wind: <span id="wind-day-1"></span></p>
+                <p>Humidity: <span id="humidity-day-1"></span></p>
+              </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="card cell large-2">
+              <p id="date-1">3/25/2022</p>
+              <div class="weather-icon-1">
+                <img src="assets/img/generic/rectangle-1.jpg">
+              </div>
+              <p>Temp: <span id="temp-day-1"></span></p>
+              <p>Wind: <span id="wind-day-1"></span></p>
+              <p>Humidity: <span id="humidity-day-1"></span></p>
+            </div>
+            <!-- Card 3 -->
+            <div class="card cell large-2">
+              <p id="date-1">3/25/2022</p>
+              <div class="weather-icon-1">
+                <img src="assets/img/generic/rectangle-1.jpg">
+              </div>
+              <p>Temp: <span id="temp-day-1"></span></p>
+              <p>Wind: <span id="wind-day-1"></span></p>
+              <p>Humidity: <span id="humidity-day-1"></span></p>
+            </div>
+            <!-- Card 4 -->
+            <div class="card cell large-2">
+              <p id="date-1">3/25/2022</p>
+              <div class="weather-icon-1">
+                <img src="assets/img/generic/rectangle-1.jpg">
+              </div>
+              <p>Temp: <span id="temp-day-1"></span></p>
+              <p>Wind: <span id="wind-day-1"></span></p>
+              <p>Humidity: <span id="humidity-day-1"></span></p>
+            </div>
+            <!-- Card 5 -->
+            <div class="card cell large-2">
+              <p id="date-1">3/25/2022</p>
+              <div class="weather-icon-1">
+                <img src="assets/img/generic/rectangle-1.jpg">
+              </div>
+              <p>Temp: <span id="temp-day-1"></span></p>
+              <p>Wind: <span id="wind-day-1"></span></p>
+              <p>Humidity: <span id="humidity-day-1"></span></p>
+            </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+
+  <script src="js/vendor/jquery.js"></script>
+  <script src="js/vendor/what-input.js"></script>
+  <script src="js/vendor/foundation.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>
