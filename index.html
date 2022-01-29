@@ -21,9 +21,9 @@
     <div class="cell medium-3">
       <div class="grid-y">
         <form action="#">
-          <label for="selected-city" id="selected-city">Search for a City</label>
+          <label for="selected-city">Search for a City</label>
           <input type="text" name="selected-city" id="selected-city" required>
-          <input type="submit" class="button submit success expanded" value="Search">
+          <input type="submit" class="button submit success expanded" value="Search" id="submit">
         </form>
         <div class="grid-y">
           <button type="button" class="button secondary">button</button>
@@ -38,10 +38,10 @@
       <div class="grid-x">
         <!-- current weather -->
         <div id="current-weather" class="cell callout">
-          <h2 id="current-city">Atlanta <span id="current-date"></span></h2>
-          <p >Temp: <span id="current-temp">75</span></p>
-          <p>Wind: <span id="current-wind">75</span></p>
-          <p>Humidity: <span id="current-humidity">75</span></p>
+          <h2 id="current-city" style="display: inline;"></h2><span id="current-date"><i id="current-icon"></i></span>
+          <p >Temp: <span id="current-temp"></span></p>
+          <p>Wind: <span id="current-wind"></span></p>
+          <p>Humidity: <span id="current-humidity"></span></p>
           <p>UV Index: <span id="current-uvIndex">75</span></p>
         </div>
         <!-- 5 day forecast -->
