@@ -9,3 +9,22 @@ h1 {
     padding-left: .5em;
     font-weight: 500;
 }
+
+input.button, #selected-city, button.button {
+    border-radius: 10px;
+}
+
+.card-section p:first-child {
+    font-weight: 900;
+    font-size: 1.2em;
+
+}
+
+.lead {
+    font-weight: 900;
+    margin-left: 1vw;
+}
+
+.callout {
+    border: 2px solid black;
+}

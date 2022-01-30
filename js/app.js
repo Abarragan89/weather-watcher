@@ -35,10 +35,10 @@ const getUVIndex = function (lat, lon) {
         })
         .then(function (data) {
             const uvIndex = data.daily[0].uvi;
-            if (uvIndex < 3) {
+            if (uvIndex < 4) {
                 uvIndexEl.classList.add("label", "success");
                 uvIndexEl.textContent = uvIndex;
-            } else if (uvIndex < 6) {
+            } else if (uvIndex < 8) {
                 uvIndexEl.classList.add("label", "warning");
                 uvIndexEl.textContent = uvIndex;
             } else {
@@ -111,6 +111,7 @@ loadCities();
 const buttonSearch = function (event) {
     const city = event.target.innerHTML
     findCity(city);
+    getCurrentDate(0, "current-date", "long")
     let noonTime = 4;
     for (let i = 1; i < 6; i++) {
         getCurrentDate(i, `date-${i}`);
@@ -157,7 +158,7 @@ const findCity = function (city) {
             // Get city and save to local storage and display 
             let cityName = data.name
             document.querySelector("#current-city").textContent = cityName;
-            saveCity(city)
+            saveCity(cityName)
         })
 }
 
