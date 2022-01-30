@@ -2,6 +2,7 @@
 $(document).foundation();
 const apiKey = "8b169dfd2096fa29542212c363f5739e";
 const searchEl = document.querySelector("#submit")
+const buttonDivEl = document.querySelector("#city-list")
 const degreeSymbol = String.fromCharCode(176);
 let cityCount = localStorage.length;
 
@@ -24,7 +25,6 @@ const getCurrentDate = function (num, elementId, long) {
         dateEl.textContent = currentDate;
     }
 }
-
 const getUVIndex = function (lat, lon) {
     const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`;
     const uvIndexEl = document.getElementById("current-uvIndex")
@@ -53,37 +53,7 @@ const getCurrentCityWeatherInfo = function (event) {
     // Get the input value for city
     let city = document.querySelector("#selected-city").value;
     // Make url and fetch call
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
-    fetch(url)
-        .then(function (response) {
-            return response.json()
-        })
-        .then(function (data) {
-            console.log(data)
-            // Get current temperature
-            let currentTemp = data.main.temp;
-            currentTemp = currentTemp.toFixed(0);
-            document.querySelector("#current-temp").textContent = `${currentTemp}${degreeSymbol} F`;
-            // Get current wind
-            let currentWind = data.wind.speed;
-            document.querySelector("#current-wind").textContent = `${currentWind} MPH`
-            // Get current humidity
-            let currentHumidity = data.main.humidity;
-            document.querySelector("#current-humidity").textContent = `${currentHumidity}%`
-            // Get Icon
-            let icon = data.weather[0].icon;
-            const iconurl = "http://openweathermap.org/img/w/" + icon + ".png";
-            document.querySelector("#current-icon").setAttribute("src", iconurl)
-            // Get current UV Index (first get lat and lon)
-            let lat = data.coord.lat;
-            let lon = data.coord.lon;
-            getUVIndex(lat, lon)
-            // Get city and save to local storage and display 
-            let cityName = data.name
-            document.querySelector("#current-city").textContent = cityName
-            saveCity(cityName)
-            console.log(cityName)
-        })
+    findCity(city);
 }
 const forecast = function (day, noonTime) {
     getCurrentDate(day, `date-${day}`);
@@ -123,9 +93,6 @@ const saveCity = function (city) {
     const button = document.createElement("button");
     button.classList.add("button", "secondary");
     button.textContent = city;
-
-    // button.onclick = searchCity
-
     document.getElementById("city-list").appendChild(button);
     localStorage.setItem(cityCount, city);
     cityCount++;
@@ -141,9 +108,17 @@ const loadCities = function () {
 }
 loadCities();
 
-// const buttonFunct = function(event) {
-//     city = this.
-// }
+const buttonSearch = function (event) {
+    const city = event.target.innerHTML
+    findCity(city);
+    let noonTime = 4;
+    for (let i = 1; i < 6; i++) {
+        getCurrentDate(i, `date-${i}`);
+        getForecast([i], city, noonTime);
+        noonTime += 7;
+    }
+}
+buttonDivEl.addEventListener("click", buttonSearch)
 
 searchEl.addEventListener("click", getCurrentCityWeatherInfo);
 searchEl.addEventListener("click", forecast.bind(event, 1, 4));
@@ -152,3 +127,60 @@ searchEl.addEventListener("click", forecast.bind(event, 3, 20));
 searchEl.addEventListener("click", forecast.bind(event, 4, 28));
 searchEl.addEventListener("click", forecast.bind(event, 5, 36));
 
+
+const findCity = function (city) {
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
+    fetch(url)
+        .then(function (response) {
+            return response.json()
+        })
+        .then(function (data) {
+            console.log(data)
+            // Get current temperature
+            let currentTemp = data.main.temp;
+            currentTemp = currentTemp.toFixed(0);
+            document.querySelector("#current-temp").textContent = `${currentTemp}${degreeSymbol} F`;
+            // Get current wind
+            let currentWind = data.wind.speed;
+            document.querySelector("#current-wind").textContent = `${currentWind} MPH`
+            // Get current humidity
+            let currentHumidity = data.main.humidity;
+            document.querySelector("#current-humidity").textContent = `${currentHumidity}%`
+            // Get Icon
+            let icon = data.weather[0].icon;
+            const iconurl = "http://openweathermap.org/img/w/" + icon + ".png";
+            document.querySelector("#current-icon").setAttribute("src", iconurl)
+            // Get current UV Index (first get lat and lon)
+            let lat = data.coord.lat;
+            let lon = data.coord.lon;
+            getUVIndex(lat, lon)
+            // Get city and save to local storage and display 
+            let cityName = data.name
+            document.querySelector("#current-city").textContent = cityName;
+            saveCity(city)
+        })
+}
+
+const getForecast = function (day, city, noonTime) {
+    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=imperial`
+    fetch(url)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data)
+            // Get and display temperature
+            let temp = data.list[noonTime].main.temp;
+            document.querySelector(`#temp-day-${day}`).textContent = `${temp}${degreeSymbol} F`;
+            // Get and display wind
+            let wind = data.list[noonTime].wind.speed;
+            document.querySelector(`#wind-day-${day}`).textContent = `${wind} MPH`
+            // Get and display humidity
+            let humidity = data.list[noonTime].main.humidity;
+            document.querySelector(`#humidity-day-${day}`).textContent = `${humidity}%`
+            // Get and display icon
+            let icon = data.list[noonTime].weather[0].icon;
+            const iconurl = "http://openweathermap.org/img/w/" + icon + ".png";
+            document.querySelector(`#icon-day-${day}`).setAttribute("src", iconurl)
+        })
+}
