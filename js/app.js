@@ -24,7 +24,28 @@ const getCurrentDate = function (num, elementId, long) {
     }
 }
 
-
+const getUVIndex = function (lat, lon) {
+    const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+    const uvIndexEl = document.getElementById("current-uvIndex")
+    uvIndexEl.removeAttribute("class")
+    fetch(url)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            const uvIndex = data.daily[0].uvi; 
+            if (uvIndex < 3) {
+                uvIndexEl.classList.add("label", "success");
+                uvIndexEl.textContent = uvIndex;
+            } else if (uvIndex < 6) {
+                uvIndexEl.classList.add("label", "warning");
+                uvIndexEl.textContent = uvIndex;
+            } else {
+                uvIndexEl.classList.add("label", "alert");
+                uvIndexEl.textContent = uvIndex;
+            }
+        })
+}
 const getCurrentCityWeatherInfo = function (event) {
     getCurrentDate(0, "current-date", "long");
     event.preventDefault();
@@ -60,13 +81,14 @@ const getCurrentCityWeatherInfo = function (event) {
             // Get current humidity
             let currentHumidity = data.main.humidity;
             document.querySelector("#current-humidity").textContent = `${currentHumidity}%`
-
             // Get Icon
             let icon = data.weather[0].icon;
             const iconurl = "http://openweathermap.org/img/w/" + icon + ".png";
             document.querySelector("#current-icon").setAttribute("src", iconurl)
-            // Get current UV Index
-            // let currentUV = data.
+            // Get current UV Index (first get lat and lon)
+            let lat = data.coord.lat;
+            let lon = data.coord.lon;
+            getUVIndex(lat, lon)
         })
 }
 const forecast = function (day, noonTime) {
