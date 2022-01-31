@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"name": "weather-watcher",
+			"path": ".."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Foundation-Sites-CSS"
+	}
+}
